@@ -4,14 +4,18 @@ import { CheckBox } from "native-base";
 import Icon from "react-native-vector-icons/EvilIcons"
 import { connect } from "react-redux";
 import * as actions from "../../store/actions"
+import IconMenu from "react-native-vector-icons/Ionicons";
 import { RFPercentage} from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 
-function ForgetPassword({login}){
+function ForgetPassword({login,navigation}){
     return(
         <View style={styles.container}>
             <View style={styles.sec1}>
-                <Image style={{width:144,height:54}} source={require('../../../assets/images/logowt.png')}/>
+                <TouchableOpacity onPress={()=>navigation.goBack()}>
+                    <IconMenu name="chevron-back" color="#001441" size={30}/>
+                </TouchableOpacity>
+                <Image resizeMode="contain" style={{width:147,height:57,marginLeft:wp('20')}} source={require('../../../assets/images/logowt.png')}/>
             </View>
             <View style={styles.sec2}>
                 <Text style={styles.title}>Forget Password</Text>
@@ -64,7 +68,9 @@ const styles=StyleSheet.create({
     },
     sec1:{
         flex:1,
-        justifyContent:'center',
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        alignItems:'center',
         width:'90%',
         marginLeft:21
     },

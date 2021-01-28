@@ -4,7 +4,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { RFPercentage} from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import Header from "../../component/header"
-function PayNow(){
+function PayNow({navigation}){
     return (
         <View style={{flex:1}}>
             <Header
@@ -53,7 +53,7 @@ function PayNow(){
                 <Text style={styles.billingDes}>Craig Hafer Walsky 8 Kane Road Morgantown, PA 19543</Text>
                 <Text style={{...styles.billingDes,fontSize:RFPercentage(1.8),textDecorationLine:'underline'}}>cdhafer@me.com</Text>
                 <Text style={{...styles.billingDes,fontSize:RFPercentage(1.8),textDecorationLine:'underline'}}>610-750-4463</Text>
-                <TouchableOpacity style={styles.btnPayNow}>
+                <TouchableOpacity style={styles.btnPayNow} onPress={()=>navigation.navigate('paymethod')}>
                     <Text style={{color:'white'}}>PAY NOW</Text>
                 </TouchableOpacity>
             </View>

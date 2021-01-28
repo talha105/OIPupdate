@@ -1,19 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { View,Text ,StyleSheet,Image,TextInput,TouchableOpacity} from "react-native";
-import { CheckBox } from "native-base";
+import { Button, CheckBox } from "native-base";
 import { createStore} from "redux";
 import { RFPercentage} from "react-native-responsive-fontsize";
+import DatePicker from 'react-native-date-picker';
+import IconMenu from "react-native-vector-icons/Ionicons";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import { ScrollView } from "react-native-gesture-handler";
 
 function CreateAcount({navigation}){
+    const [fields,setFields]=useState({
+        userName:"",
+        email:"",
+        DOB:"",
+        gender:"",
+        date:new Date()
+    });
+    const [maleCheck,setMaleCheck]=useState(true);
+    const [femaleCheck,setFemaleCheck]=useState(false);
+    const [newsCheck,setNewsCheck]=useState(false);
+
+    function getValue(v,key){
+        setFields((pS)=>{
+            return{
+                ...pS,
+                [key]:v
+            }
+        })
+    }
+
+    function getNews(){
+        setNewsCheck((pS)=>!pS)
+    }
+
+    function getMale(){
+        setFemaleCheck(false)
+        setMaleCheck(true)
+        setFields((pS)=>{
+            return{
+                ...pS,
+                gender:"male"
+            }
+        })
+    }
+    function getFemale(){
+        setMaleCheck(false)
+        setFemaleCheck(true)
+        setFields((pS)=>{
+            return{
+                ...pS,
+                gender:"female"
+            }
+        })
+    }
     return(
         
         <View style={{flex:1, width:'100%'}}>
             <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
             <View style={styles.sec1}>
-                <Image style={{width:147,height:55}} source={require('../../../assets/images/logowt.png')}/>
+                <TouchableOpacity onPress={()=>navigation.goBack()}>
+                    <IconMenu name="chevron-back" color="#001441" size={30}/>
+                </TouchableOpacity>
+                <Image resizeMode="contain" style={{width:147,height:57,marginLeft:wp('20')}} source={require('../../../assets/images/logowt.png')}/>
             </View>
             <View style={styles.sec2}>
                 <Text style={styles.title}>Create Account</Text>
@@ -31,33 +80,35 @@ function CreateAcount({navigation}){
                     </View>
                     <View style={styles.p2}>
                         <Text style={styles.inputTxt}>UserName</Text>
-                        <TextInput style={styles.input}/>
+                        <TextInput onChangeText={(v)=>getValue(v,"userName")} style={styles.input}/>
                         <Text style={styles.inputTxt}>Email</Text>
-                        <TextInput style={styles.input}/>
+                        <TextInput onChangeText={(v)=>getValue(v,"email")} style={styles.input}/>
                         <Text style={styles.inputTxt}>Gender</Text>
                         <View style={styles.doubleInput}>
                                 <View style={styles.chec}>
-                                    <CheckBox style={{width:20,height:20,borderRadius:4}} checked={true}/>
+                                    <CheckBox onPress={getMale} style={{width:20,height:20,borderRadius:4}} checked={maleCheck}/>
                                     <Text style={styles.gender}>Male</Text>
                                 </View>
                                 <View style={styles.chec}>
-                                    <CheckBox style={{width:20,height:20,borderRadius:4}} checked={false}/>
+                                    <CheckBox onPress={getFemale} style={{width:20,height:20,borderRadius:4}} checked={femaleCheck}/>
                                     <Text style={styles.gender}>Female</Text>
                                 </View>
                         </View>
+                        <Text style={styles.inputTxt}>Date of Birth</Text>
                         <View style={styles.doubleInput}>
-                                <View style={{...styles.chec,width:'30%'}}>
-                                    <TextInput placeholder="09" style={styles.gender}/>
-                                </View>
-                                <View style={{...styles.chec,width:'30%'}}>
-                                    <TextInput placeholder="August" style={styles.gender}/>
-                                </View>
-                                <View style={{...styles.chec,width:'30%'}}>
-                                    <TextInput placeholder="1986" style={styles.gender}/>
-                                </View>
+                            <View style={styles.dateCon}>
+                                <DatePicker
+                                textColor={'#71809C'}
+                                dividerHeight={0}
+                                style={{height:70}}
+                                date={fields.date}
+                                mode="date"
+                                onDateChange={(d)=>getValue(d,"date")}
+                                />
+                            </View>
                         </View>
                         <View style={styles.sub}>
-                                    <CheckBox style={{width:20,height:20,borderRadius:4}} checked={true}/>
+                                    <CheckBox onPress={getNews} style={{width:20,height:20,borderRadius:4}} checked={newsCheck}/>
                                     <Text style={styles.gender}>Newsletter Subsribe</Text>
                         </View>
                         <View style={styles.loginV}>
@@ -89,10 +140,12 @@ const styles=StyleSheet.create({
     },
     sec1:{
         flex:1,
-        justifyContent:'center',
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        alignItems:'center',
         width:'90%',
-        marginTop:15,
-        marginBottom:15,
+        marginTop:hp(3),
+        marginBottom:hp(3),
         marginLeft:21
     },
     sec2:{
@@ -151,15 +204,7 @@ const styles=StyleSheet.create({
         width:'100%',
         height:1
     }
-    ,input:{
-        width:'100%',
-        borderRadius:7,
-        borderWidth:1,
-        borderColor:'#DCE0E7',
-        backgroundColor:'white',
-        height:40,
-        marginTop:10
-    },
+    ,
     input:{
         width:'90%',
         borderRadius:7,
@@ -232,6 +277,15 @@ const styles=StyleSheet.create({
     },
     term:{
         color:'#001441',
+    },
+    dateCon:{
+        width:'100%',
+        marginTop:hp(1.5),
+        marginBottom:hp(1.5),
+        padding:5,
+        borderWidth:1,
+        borderColor:'#DCE0E7',
+        borderRadius:7
     }
 })
 

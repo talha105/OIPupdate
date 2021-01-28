@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Text, View,StyleSheet, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-import IconMenu from "react-native-vector-icons/Ionicons"
+import IconMenu from "react-native-vector-icons/Ionicons";
+import { RFPercentage} from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 function Header({title,iconName,back}){
     const navigation = useNavigation();
     return (
@@ -23,7 +25,7 @@ function Header({title,iconName,back}){
 
 const styles=StyleSheet.create({
     Header:{
-        height: 62,
+        height: hp(8),
         width: '100%',
         flexDirection:'row',
         backgroundColor:'white',
@@ -31,8 +33,9 @@ const styles=StyleSheet.create({
         alignItems:'center'
     },
     title:{
-        fontSize:24,
-        fontWeight:'bold',
+        paddingTop:2,
+        fontSize:RFPercentage(3),
+        fontFamily:'Poppins-Bold',
         color:'#222222'
     }
 })

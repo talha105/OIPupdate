@@ -7,6 +7,8 @@ import IconDashboard from "react-native-vector-icons/MaterialIcons"
 import IconProject from "react-native-vector-icons/SimpleLineIcons"
 import IconCreateProject from "react-native-vector-icons/FontAwesome"
 import IconProfile from "react-native-vector-icons/AntDesign"
+import { RFPercentage} from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import {connect} from "react-redux"
 import * as actions from "../store/actions"
 
@@ -15,13 +17,14 @@ function DrawerContent({navigation,logOut}){
     return (
         <View style={styles.container}>
             <View style={styles.sec1}>
+                <View style={{width:'100%'}}>
                 <View style={styles.iconCon}>
                     <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.closeDrawer()}>
                     <IconCross style={styles.icon} name="cross" color="#AAAAAA" size={30}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.pro}>
-                <Image style={{width:90,height:90,borderRadius:90/2,marginBottom:10}} source={require('../../assets/images/thumb.png')}/>
+                <Image resizeMode="contain" style={{width:wp(20),height:wp(20),borderRadius:90/2,marginBottom:hp(1.5)}} source={require('../../assets/images/thumb.png')}/>
                 <Text style={styles.proName}>Bradley Edmur</Text>
                 <Text style={styles.title}>Client</Text>
                 <TouchableOpacity onPress={()=>navigation.navigate('profile')}>
@@ -29,6 +32,7 @@ function DrawerContent({navigation,logOut}){
                         Edit
                     </Text>
                 </TouchableOpacity>
+                </View>
                 </View>
             </View>
             <View style={styles.sec2}>
@@ -97,9 +101,9 @@ const styles=StyleSheet.create({
     sec1:{
         flex:2,
         width:'100%',
+        justifyContent:'center',
         alignItems:'center',
         backgroundColor:'#EEEEEE',
-        paddingBottom:30
     },
     sec2:{
         flex:3,
@@ -115,8 +119,7 @@ const styles=StyleSheet.create({
         alignItems:'flex-end',
     },
     icon:{
-        marginRight:30,
-        marginTop:30
+        marginRight:wp(6),
     },
     pro:{
         width:'100%',
@@ -129,8 +132,8 @@ const styles=StyleSheet.create({
     title:{
         color:'#222222',
         fontSize:18,
-        marginTop:5,
-        marginBottom:15
+        marginTop:hp(1),
+        marginBottom:hp(1.7)
     },
     btn:{
         height:35,

@@ -1,14 +1,24 @@
-import React, { Component } from 'react'
-import { Text, View,Image,StyleSheet,TextInput } from 'react-native'
+import React, { useEffect,useState } from 'react'
+import { Text, View,Image,StyleSheet,TextInput,Animated, Dimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { RFPercentage} from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import Header from "../../component/header"
+
+const {height}=Dimensions.get('window')
 function Profile(){
+    const position=useState(new Animated.Value(height))[0];
+    useEffect(()=>{
+        Animated.timing(position,{
+            toValue:0,
+            duration:500,
+            useNativeDriver:true
+        }).start()
+    })
     return (
         <View style={{flex:1}}>
             <Header title="Profile" iconName="md-menu"/>
-            <View style={styles.container}>
+            <Animated.View style={{...styles.container,transform:[{translateY:position}]}}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.sec}>
                     <View style={styles.imgCon}>
@@ -46,7 +56,7 @@ function Profile(){
                     </View>
                 </View>
                 </ScrollView>
-            </View>
+            </Animated.View>
         </View>
     )
 }

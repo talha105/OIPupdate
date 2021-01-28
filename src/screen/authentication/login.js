@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import {View,Text,StyleSheet,Image, TextInput,TouchableOpacity, ScrollView} from "react-native";
 import { RFPercentage} from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {CheckBox} from "native-base";
+import {Button, CheckBox} from "native-base";
 import * as actions from "../../store/actions"
 import { connect } from "react-redux";
 function Login({navigation,login}){
+    const [fields,setFields]=useState({email:"",password:""})
+    const [check,setCheck]=useState(false)
+    function getValue(v,key){
+        setFields((pS)=>{
+            return {
+                ...pS,
+                [key]:v
+            }
+        })
+    }
+    function setCheckBox(){
+        setCheck((pS)=>!pS)
+    }
     return(
         <View style={styles.container}>
             <View style={styles.img}>
@@ -30,8 +43,8 @@ function Login({navigation,login}){
                 <View style={styles.line}/>
                 <View style={styles.sec2}>
                     <View style={styles.inputCon}>
-                        <TextInput style={styles.input} placeholder="Email"/>
-                        <TextInput style={styles.input} secureTextEntry placeholder="Password"/>
+                        <TextInput onChangeText={(v)=>getValue(v,"email")} style={styles.input} placeholder="Email"/>
+                        <TextInput onChangeText={(v)=>getValue(v,"password")} style={styles.input} secureTextEntry placeholder="Password"/>
                     </View>
                     <View style={styles.sec3}>
                         <TouchableOpacity>
@@ -43,7 +56,7 @@ function Login({navigation,login}){
                     </View>
                     <View style={styles.sec4}>
                         <View style={styles.chec}>
-                            <CheckBox style={{width:20,height:20,borderRadius:4}} checked={true}/>
+                            <CheckBox onPress={setCheckBox} style={{width:20,height:20,borderRadius:4}} checked={check}/>
                             <Text style={styles.rem}>Rembember me</Text>
                         </View>
                         <View style={styles.pasCon}>
@@ -188,6 +201,7 @@ const styles=StyleSheet.create({
         alignItems:'center'
     },
     sec5:{
+        marginTop:5,
         width:'100%',
         justifyContent:"center",
         alignItems:'center'

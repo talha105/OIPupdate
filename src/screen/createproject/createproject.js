@@ -6,6 +6,7 @@ import Header from "../../component/header";
 import IconDate from "react-native-vector-icons/Fontisto"
 import IconPlus from "react-native-vector-icons/AntDesign"
 import Icon from 'react-native-vector-icons/Fontisto';
+import OipDatePicker from '../../component/oipDatePicker';
 
 const {height}=Dimensions.get('window');
 
@@ -36,14 +37,8 @@ function CreateProject(){
                         <TextInput style={styles.input}/>
                         <Text style={styles.inputTxt}>Start & Due Date</Text>
                         <View style={styles.doubleInput}>
-                    <View style={styles.chec}>
-                        <Icon name="date" style={styles.dateIcon} color="#7F8FA4" size={20}/>
-                        <Text style={styles.gender}>12/20/2020</Text>
-                    </View>
-                    <View style={styles.chec}>
-                        <Icon name="date" style={styles.dateIcon} color="#7F8FA4" size={20}/>
-                        <Text style={styles.gender}>12/20/2020</Text>
-                    </View>
+                    <OipDatePicker/>
+                    <OipDatePicker/>
                 </View>
                 <Text style={styles.inputTxt}>Description</Text>
                 <TextInput 

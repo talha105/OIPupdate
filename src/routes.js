@@ -27,6 +27,8 @@ import Comment from "./screen/myproject/comment"
 import { connect } from "react-redux";
 import PayNow from "./screen/payment/paynow";
 import DeliverNow from "./screen/payment/deliverNow";
+import PaymentMethod from "./screen/payment/paymentMethod";
+import drawerContent from "./component/drawerContent";
 
 const {width}=Dimensions.get('window')
 const Tab = createMaterialBottomTabNavigator();
@@ -65,7 +67,7 @@ function OIPDrawer() {
   return (
     <Drawer.Navigator
     drawerContent={({navigation})=>(<DrawerContent navigation={navigation}/>)}
-    drawerStyle={{width:width-50}}
+    drawerStyle={{width:width-70}}
     openByDefault={false}
     >
       <Drawer.Screen name="Tabs" component={Tabs} />
@@ -74,6 +76,7 @@ function OIPDrawer() {
       <Drawer.Screen name="comment" component={Comment} />
       <Drawer.Screen name="paynow" component={PayNow} />
       <Drawer.Screen name="deliver" component={DeliverNow} />
+      <Drawer.Screen name="paymethod" component={PaymentMethod} />
     </Drawer.Navigator>
   );
 }
@@ -159,7 +162,7 @@ function Routes(props) {
         <NavigationContainer>
           {props.isLogin?OIPDrawer():LoginScreens()}
           {/* <Stack.Navigator>
-            <Stack.Screen name="abc" options={{headerShown:false}} component={DeliverNow}/>
+            <Stack.Screen name="abc" options={{headerShown:false}} component={drawerContent}/>
           </Stack.Navigator> */}
       </NavigationContainer>
     )
